@@ -1,0 +1,4 @@
+{% extends "base.html" %}{% block title %}Import CSV{% endblock %}
+{% block content %}<div class="form-wrap"><div class="eyebrow">DATA IMPORT</div><h2 class="page-title">Import Sales CSV</h2><p class="text-muted">Upload historical sales data for analysis and forecasting.</p>
+<div class="panel mt-4"><form method="post" enctype="multipart/form-data"><div class="upload-zone"><div class="display-6 mb-2">↑</div><h5>Select CSV file</h5><input type="file" name="file" accept=".csv" class="form-control mt-3" required></div><button class="btn btn-dark mt-3">Import Data</button></form>
+<hr><p class="small text-muted mb-1"><b>Required columns:</b></p><code>Date, Product, Category, Quantity, Unit Price, Unit Cost, Region</code><p class="small text-muted mt-2">A sample file is available in the project's <code>data</code> folder.</p></div></div>{% endblock %}

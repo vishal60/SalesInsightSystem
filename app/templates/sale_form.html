@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% block title %}Add Sale{% endblock %}
+{% block content %}<div class="form-wrap"><div class="eyebrow">SALES MANAGEMENT</div><h2 class="page-title">Add Sales Record</h2><p class="text-muted">Enter a transaction and the system will calculate revenue and profit.</p>
+<div class="panel mt-4"><form method="post"><div class="row g-3">
+<div class="col-md-4"><label>Date</label><input name="date" type="date" class="form-control" required></div>
+<div class="col-md-8"><label>Product</label><select name="product_id" class="form-select" id="product" required>{% for p in products %}<option value="{{p.id}}" data-price="{{p.unit_price}}" data-cost="{{p.unit_cost}}">{{p.name}} · {{p.category}}</option>{% endfor %}</select></div>
+<div class="col-md-4"><label>Quantity</label><input name="quantity" type="number" min="1" class="form-control" value="1" required></div>
+<div class="col-md-4"><label>Unit Price</label><input name="unit_price" id="price" type="number" step="0.01" class="form-control" required></div>
+<div class="col-md-4"><label>Unit Cost</label><input name="unit_cost" id="cost" type="number" step="0.01" class="form-control" required></div>
+<div class="col-md-6"><label>Region</label><select name="region" class="form-select"><option>North</option><option>South</option><option>East</option><option>West</option></select></div>
+</div><div class="mt-4 d-flex gap-2"><button class="btn btn-dark">Save Sale</button><a href="{{url_for('main.sales')}}" class="btn btn-light border">Cancel</a></div></form></div></div>{% endblock %}
+{% block scripts %}<script>const p=document.getElementById('product'); function fill(){const o=p.options[p.selectedIndex];document.getElementById('price').value=o.dataset.price;document.getElementById('cost').value=o.dataset.cost;} p.addEventListener('change',fill); fill(); document.querySelector('[name=date]').value=new Date().toISOString().slice(0,10);</script>{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% block title %}Analytics{% endblock %}
+{% block content %}<div class="mb-4"><div class="eyebrow">BUSINESS INTELLIGENCE</div><h2 class="page-title">Sales Analytics</h2><p class="text-muted">Understand historical performance through visual analysis.</p></div>
+<div class="row g-4"><div class="col-xl-8"><div class="panel"><div class="panel-head"><h5>Monthly Revenue Trend</h5></div><canvas id="monthlyChart" height="100"></canvas></div></div><div class="col-xl-4"><div class="panel"><div class="panel-head"><h5>Regional Contribution</h5></div><canvas id="regionChart"></canvas></div></div><div class="col-12"><div class="panel"><div class="panel-head"><h5>Product-wise Revenue</h5></div><canvas id="productChart" height="80"></canvas></div></div></div>
+{% endblock %}{% block scripts %}<script>
+const monthly={{monthly|tojson}}, products={{product_data|tojson}}, regions={{region_data|tojson}};
+new Chart(document.getElementById('monthlyChart'),{type:'line',data:{labels:monthly.map(x=>x.Date),datasets:[{label:'Revenue',data:monthly.map(x=>x.Revenue),tension:.3}]},options:{responsive:true}});
+new Chart(document.getElementById('regionChart'),{type:'doughnut',data:{labels:Object.keys(regions),datasets:[{data:Object.values(regions)}]},options:{responsive:true}});
+new Chart(document.getElementById('productChart'),{type:'bar',data:{labels:Object.keys(products),datasets:[{label:'Revenue',data:Object.values(products)}]},options:{responsive:true,indexAxis:'y'}});
+</script>{% endblock %}

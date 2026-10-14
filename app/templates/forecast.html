@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block title %}Forecast{% endblock %}
+{% block content %}<div class="mb-4"><div class="eyebrow">PREDICTIVE ANALYTICS</div><h2 class="page-title">Sales Forecast</h2><p class="text-muted">Six-month revenue forecast using Linear Regression on historical monthly sales.</p></div>
+{% if result['error'] %}<div class="alert alert-warning">{{result['error']}}</div>{% else %}
+<div class="row g-4"><div class="col-lg-8"><div class="panel"><div class="panel-head"><h5>Forecasted Revenue</h5></div><canvas id="forecastChart" height="120"></canvas></div></div>
+<div class="col-lg-4"><div class="panel"><h5>Model Summary</h5><div class="stat-line"><span>Historical months</span><b>{{result['months_used']}}</b></div><div class="stat-line"><span>R² score</span><b>{{result['r2']}}</b></div><p class="small text-muted mt-3">R² indicates how well the simple linear model fits the historical series. It is not a guarantee of future accuracy.</p></div></div></div>
+{% endif %}{% endblock %}{% block scripts %}{% if not result['error'] %}<script>new Chart(document.getElementById('forecastChart'),{type:'line',data:{labels:{{result['labels']|tojson}},datasets:[{label:'Predicted Revenue',data:{{result['values']|tojson}},tension:.3}]},options:{responsive:true}});</script>{% endif %}{% endblock %}
